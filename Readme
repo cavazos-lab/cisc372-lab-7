@@ -10,8 +10,6 @@ LOGGING INTO CUDA.ACAD
 
 	If you do not have an EECIS account, request one!
 
-
-
 ENVIRONMENT SETUP
 ------------------------------------------------------------------------
 
@@ -20,64 +18,25 @@ NOTE:
 	To switch to bash, invoke the following command: "exec /bin/bash" or "bash"
 
 1.  Log into cuda.acad.ece.udel.edu using eecis user name/password
+	
 
-2.  Set the following environment variables:
-
-	FOR BASH SHELL
-	++++++++++++++++++++++++++++++++++++++++
-	
-	You can place/append this in ~/.bashrc (create it if not present) so 
-	it will always be performed when you log in
-	
-		# FOR SLURM (run/job submissions)
-		export PATH=$PATH:/software/slurm/bin
-	
-		# FOR CUDA
-		export PATH=$PATH:/software/cuda/bin
-		export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/software/cuda/lib64:/software/cuda/lib:/software/cuda-sdk/shared/lib
-	
-	FOR C SHELL
-	++++++++++++++++++++++++++++++++++++++++
-	
-	You can place this in ~/.login so it will always be performed when you log in
-
-		# FOR SLURM (run/job submissions)
-		setenv PATH $PATH:/software/slurm/bin
-	
-		# FOR CUDA
-		setenv PATH $PATH:/software/cuda/bin
-		setenv LD_LIBRARY_PATH $LD_LIBRARY_PATH:/software/cuda/lib64:/software/cuda/lib:/software/cuda-sdk/shared/lib
-	
 INSTALLING THE NVIDIA GPU COMPUTING SDK (OPTIONAL)
 ------------------------------------------------------------------------
 
-1.  Download the NVIDIA GPU Computing SDK with the following command:
+1.  Copy the CUDA samples (version 6.5) with the following command:
 
-	wget http://developer.download.nvidia.com/compute/cuda/4_0/sdk/gpucomputingsdk_4.0.17_linux.run
+	/usr/local/bin/cuda-install-samples-6.5.sh   ~
     
-	Note: the SDK is not the latest version but is verified to work on cuda.acad
-2.  Install the SDK:
-        a. Adjust permissions for installation with command "chmod +x gpucomputingsdk_4.0.17_linux.run"
-        b. Install NVIDIA GPU Computing SDK with following command: ./gpucomputingsdk_4.0.17_linux.run
-        c. Use the default "~/NVIDIA_GPU_Computing_SDK" directory for "install path"
-        d. When prompted for CUDA install path, give "/software/cuda"
+2.  Goto directory 0_Simple/VectorAdd or 1_Utility/DeviceQuery
 
-3.  Configuring the SDK to run Example Codes:
+	type "make"
 
-	NOTE: NVIDIA's examples require the compilation of three libraries (one for shared utilities, one for OpenCL, and the final for CUDA). The steps listed below will help you compile these libraries used in the SDK. 
-			
-	a.	compile the first set of (shared) libraries
-
-		make -C ~/NVIDIA_GPU_Computing_SDK/shared
-
-	b.	compile the second set of (CUDA) libraries
-
-		make -C ~/NVIDIA_GPU_Computing_SDK/C/common
+    Executables are generated 
 			
 REFERENCING EXAMPLE CODE (CUDA/C)
 ------------------------------------------------------------------------
 
-	CUDA Examples are found under ~/NVIDIA_GPU_Computing_SDK/C/src/
+	CUDA Examples are found under each subfolder of NVIDIA_CUDA-V6.5_samples
 	
 
 COMPILING CODE
@@ -87,11 +46,7 @@ To compile an example program/lab: invoke "make" from the sample lab folder you
 are trying to compile.
 
 	CUDA:
-		make -C ~/NVIDIA_GPU_Computing_SDK/C/src/deviceQuery/
-
-	NOTE:
-		Binaries are placed under ~/NVIDIA_GPU_Computing_SDK/C/bin/linux/release
-
+		make 
 
 If you choose to remember compiling commands well, feel free to reference a 
 brief guide to compiling various code below.
@@ -121,7 +76,7 @@ Notes:
 example execution:
 	srun -N1 --gres=gpu:1 ./deviceQuery 
 	or
-	srun -N1 --gres=gpu:1 ./vecAdd
+	srun -N1 --gres=gpu:1 ./vectorAdd
 
 ADDITIONAL INFORMATION
 ------------------------------------------------------------------------
